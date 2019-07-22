@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<jsp:useBean id="lectureList" scope="request" type="java.util.List<com.conferenceManagement.data.model.User >"/>
+
 <tag:pageModel title="Lectures" >
     <table id="lectures" class="table table-striped">
         <thead>

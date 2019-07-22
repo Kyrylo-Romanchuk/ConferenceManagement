@@ -4,6 +4,7 @@ import com.conferenceManagement.controller.Controller;
 import com.conferenceManagement.controller.LectureController;
 import com.conferenceManagement.controller.UserController;
 import com.conferenceManagement.data.converter.DateConverter;
+import com.conferenceManagement.data.converter.IntegerConverter;
 import com.conferenceManagement.data.dao.LectureDao;
 import com.conferenceManagement.data.dao.UserDao;
 import com.conferenceManagement.data.model.Lecture;
@@ -19,6 +20,7 @@ public class Initializer {
 
     public Initializer() {
         DateConverter dateConverter = new DateConverter();
+        IntegerConverter integerConverter = new IntegerConverter();
 
         List<User> users = new ArrayList<>();
         users.add(new User(1, "David", "Speaker"));

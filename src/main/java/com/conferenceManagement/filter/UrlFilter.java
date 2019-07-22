@@ -9,7 +9,7 @@ import java.util.List;
 
 @WebFilter("/*")
 public class UrlFilter implements Filter {
-    private final List<String> resolveDirection = Arrays.asList("/conference/*", "/*");
+    private final List<String> resolveDirection = Arrays.asList("/mvn/.*", "/");
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -22,7 +22,7 @@ public class UrlFilter implements Filter {
         String requestUri = httpRequest.getRequestURI().replace(httpRequest.getContextPath() + "", "");
 
         if (resolveDirection.stream().noneMatch(requestUri::matches)) {
-            request.getRequestDispatcher("/conference" + requestUri).forward(request, response);
+            request.getRequestDispatcher("/mvn" + requestUri).forward(request, response);
         } else {
             chain.doFilter(request, response);
         }

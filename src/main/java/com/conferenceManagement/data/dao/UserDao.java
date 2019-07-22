@@ -15,4 +15,9 @@ public class UserDao implements Dao<User> {
     public List<User> getAll() {
         return users;
     }
+
+    @Override
+    public User findById(Integer id) {
+        return users.stream().filter(user -> user.getId().equals(id)).findFirst().orElse(null);
+    }
 }

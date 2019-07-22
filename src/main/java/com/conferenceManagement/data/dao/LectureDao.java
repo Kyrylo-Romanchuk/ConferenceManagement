@@ -11,7 +11,13 @@ public class LectureDao implements Dao<Lecture> {
         this.lectures = lectures;
     }
 
+    @Override
     public List<Lecture> getAll() {
         return lectures;
+    }
+
+    @Override
+    public Lecture findById(Integer id) {
+        return lectures.stream().filter(lecture -> lecture.getId().equals(id)).findFirst().orElse(null);
     }
 }
