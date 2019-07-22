@@ -5,13 +5,13 @@ import java.util.Date;
 public class Lecture {
     private Integer id;
     private String topic;
-    private String speaker;
+    private User speaker;
     private String place;
     private Date date;
     private String time;
 
 
-    public Lecture(Integer id, String topic, String speaker, String place, Date date, String time) {
+    public Lecture(Integer id, String topic, User speaker, String place, Date date, String time) {
         this.id = id;
         this.topic = topic;
         this.speaker = speaker;
@@ -28,11 +28,11 @@ public class Lecture {
         this.topic = topic;
     }
 
-    public String getSpeaker() {
+    public User getSpeaker() {
         return speaker;
     }
 
-    public void setSpeaker(String speaker) {
+    public void setSpeaker(User speaker) {
         this.speaker = speaker;
     }
 

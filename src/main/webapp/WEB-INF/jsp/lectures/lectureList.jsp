@@ -17,7 +17,7 @@
         <c:forEach var="lecture" items="${lectureList}">
             <tr>
                 <td>${lecture.getTopic()}</td>
-                <td>${lecture.getSpeaker()}</td>
+                <td>${lecture.getSpeaker().getName()}</td>
                 <td>${lecture.getPlace()}</td>
                 <td><fmt:formatDate value="${lecture.getDate()}" pattern="MM/dd/yyyy"/></td>
                 <td>${lecture.getTime()}</td>
