@@ -27,6 +27,6 @@ public class UserControllerTest {
     @Test
     public void showList() {
         assertEquals("/users/userList.jsp", userController.showList(request));
-        verify(request).setAttribute("userList", userDao.getAll());
+        verify(request).setAttribute("dataList", userDao.getAll());
     }
 }

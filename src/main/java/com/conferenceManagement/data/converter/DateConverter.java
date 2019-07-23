@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateConverter implements Converter<String, Date> {
-    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 
     @Override
     public Date convert (String value){

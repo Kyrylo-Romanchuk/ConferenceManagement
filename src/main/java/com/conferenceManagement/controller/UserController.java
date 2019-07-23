@@ -12,7 +12,7 @@ public class UserController implements Controller {
     }
 
     public String showList(HttpServletRequest request) {
-        request.setAttribute("userList", userDao.getAll());
+        request.setAttribute("dataList", userDao.getAll());
         return "/users/userList.jsp";
     }
 }

@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-@WebServlet("/mvn/*")
+@WebServlet("/mvc/*")
 public class Servlet extends HttpServlet {
     private final Map<String, Function<HttpServletRequest, String>> getMapper = new HashMap<>();
     private final Initializer initializer = new Initializer();
@@ -35,7 +35,7 @@ public class Servlet extends HttpServlet {
     private void followLink(HttpServletRequest request, HttpServletResponse response,
                             Map<String, Function<HttpServletRequest, String>> mapper) throws ServletException, IOException {
         String contextPath = request.getContextPath();
-        String requestUri = request.getRequestURI().replace(contextPath + "/mvn", "");
+        String requestUri = request.getRequestURI().replace(contextPath + "/mvc", "");
         if (mapper.containsKey(requestUri)){
             String targetURL = mapper.get(requestUri).apply(request);
             targetURL = "/WEB-INF/jsp" + targetURL;

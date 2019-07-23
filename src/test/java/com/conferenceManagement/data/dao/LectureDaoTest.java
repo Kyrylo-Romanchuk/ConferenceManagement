@@ -25,8 +25,8 @@ public class LectureDaoTest {
         users.add(new User(2, "Aider", "Speaker"));
 
         lectures = new ArrayList<>();
-        lectures.add(new Lecture(1, "Business", users.get(0), "hall n.1", simpleDateFormat.parse("05/05/1995"), "11:00"));
-        lectures.add(new Lecture(2, "Starcraft Theory and Strategy", users.get(1), "hall n.1", simpleDateFormat.parse("05/05/1995"), "12:30"));
+        lectures.add(new Lecture(1, "Business", users.get(0), "hall n.1", simpleDateFormat.parse("05/05/1995")));
+        lectures.add(new Lecture(2, "Starcraft Theory and Strategy", users.get(1), "hall n.1", simpleDateFormat.parse("05/05/1995")));
 
         lectureDao = new LectureDao(lectures);
     }

@@ -10,8 +10,8 @@ import static org.junit.Assert.*;
 public class DateConverterTest {
     @Test
     public void convert() throws ParseException {
-        String testValue = "05/05/1000";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        String testValue = "05/05/1000 10:33";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
         DateConverter dateConverter = new DateConverter();
         assertEquals(simpleDateFormat.parse(testValue), dateConverter.convert(testValue));
         assertNull(dateConverter.convert(""));

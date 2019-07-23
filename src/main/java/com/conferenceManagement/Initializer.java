@@ -29,9 +29,9 @@ public class Initializer {
         UserDao userDao = new UserDao(users);
 
         List<Lecture> lectures = new ArrayList<>();
-        lectures.add(new Lecture(1, "Business", users.get(0), "hall n.1", dateConverter.convert("05/05/1995"), "11:00"));
-        lectures.add(new Lecture(2, "Starcraft Theory and Strategy", users.get(1), "hall n.1", dateConverter.convert("05/05/1995"), "12:30"));
-        lectures.add(new Lecture(3, "Business", users.get(0), "hall n.2", dateConverter.convert("05/06/1995"), "11:00"));
+        lectures.add(new Lecture(1, "Business", users.get(0), "hall n.1", dateConverter.convert("05/05/1995 10:00")));
+        lectures.add(new Lecture(2, "Starcraft Theory and Strategy", users.get(1), "hall n.1", dateConverter.convert("05/05/1995 13:00")));
+        lectures.add(new Lecture(3, "Business", users.get(0), "hall n.2", dateConverter.convert("05/06/1995 12:00")));
         LectureDao lectureDao = new LectureDao(lectures);
 
         UserController userController = new UserController(userDao);

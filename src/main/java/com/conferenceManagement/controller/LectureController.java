@@ -12,7 +12,7 @@ public class LectureController implements Controller {
     }
 
     public String showList(HttpServletRequest request) {
-        request.setAttribute("lectureList", lectureDao.getAll());
+        request.setAttribute("dataList", lectureDao.getAll());
         return "/lectures/lectureList.jsp";
     }
 }

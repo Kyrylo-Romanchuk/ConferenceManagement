@@ -2,28 +2,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<jsp:useBean id="lectureList" scope="request" type="java.util.List<com.conferenceManagement.data.model.User >"/>
+<jsp:useBean id="dataList" scope="request" type="java.util.List<com.conferenceManagement.data.model.Lecture >"/>
 
-<tag:pageModel title="Lectures" >
-    <table id="lectures" class="table table-striped">
-        <thead>
-        <tr>
-            <th>Topic</th>
-            <th>Speaker</th>
-            <th>Place</th>
-            <th>Date</th>
-            <th>Time</th>
-        </tr>
-        </thead>
-
-        <c:forEach var="lecture" items="${lectureList}">
+<tag:pageModel title="Lectures">
+    <div class="container">
+        <table id="lectures" class="table table-striped">
+            <thead>
             <tr>
-                <td>${lecture.getTopic()}</td>
-                <td>${lecture.getSpeaker().getName()}</td>
-                <td>${lecture.getPlace()}</td>
-                <td><fmt:formatDate value="${lecture.getDate()}" pattern="MM/dd/yyyy"/></td>
-                <td>${lecture.getTime()}</td>
+                <th>Topic</th>
+                <th>Speaker</th>
+                <th>Place</th>
+                <th>Date</th>
             </tr>
-        </c:forEach>
-    </table>
+            </thead>
+
+            <c:forEach var="item" items="${dataList}">
+                <tr>
+                    <td>${item.topic}</td>
+                    <td>${item.speaker.name}</td>
+                    <td>${item.place}</td>
+                    <td><fmt:formatDate value="${item.date}" pattern="MM/dd/yyyy HH:mm"/></td>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
 </tag:pageModel>

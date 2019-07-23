@@ -27,6 +27,6 @@ public class LectureControllerTest {
     @Test
     public void showList() {
         assertEquals("/lectures/lectureList.jsp", lectureController.showList(request));
-        verify(request).setAttribute("lectureList", lectureDao.getAll());
+        verify(request).setAttribute("dataList", lectureDao.getAll());
     }
 }

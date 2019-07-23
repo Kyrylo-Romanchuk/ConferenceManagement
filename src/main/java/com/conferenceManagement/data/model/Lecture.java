@@ -8,16 +8,13 @@ public class Lecture {
     private User speaker;
     private String place;
     private Date date;
-    private String time;
 
-
-    public Lecture(Integer id, String topic, User speaker, String place, Date date, String time) {
+    public Lecture(Integer id, String topic, User speaker, String place, Date date) {
         this.id = id;
         this.topic = topic;
         this.speaker = speaker;
         this.place = place;
         this.date = date;
-        this.time = time;
     }
 
     public String getTopic() {
@@ -50,14 +47,6 @@ public class Lecture {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 
     public Integer getId() {
