@@ -1,11 +1,13 @@
 package com.conferenceManagement.data.model;
 
+import com.conferenceManagement.data.Role;
+
 public class User {
     private Integer id;
     private String name;
-    private String role;
+    private Role role;
 
-    public User(Integer id, String name, String role) {
+    public User(Integer id, String name, Role role) {
         this.id = id;
         this.name = name;
         this.role = role;
@@ -27,11 +29,11 @@ public class User {
         this.name = name;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }

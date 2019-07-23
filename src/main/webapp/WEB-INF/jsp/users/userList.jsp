@@ -3,7 +3,7 @@
 
 <jsp:useBean id="dataList" scope="request" type="java.util.List<com.conferenceManagement.data.model.User >"/>
 
-<tag:pageModel title="Users">
+<tag:page title="Users">
     <div class="container">
         <table id="users" class="table table-striped">
             <thead>
@@ -21,4 +21,4 @@
             </c:forEach>
         </table>
     </div>
-</tag:pageModel>
+</tag:page>

@@ -10,7 +10,10 @@
                 <a class="nav-link" href="${base}/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="${base}/lectures">Lecture</a>
+                <a class="nav-link" href="${base}/conferences">Conferences</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="${base}/lectures">Lectures</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="${base}/users">Users</a>

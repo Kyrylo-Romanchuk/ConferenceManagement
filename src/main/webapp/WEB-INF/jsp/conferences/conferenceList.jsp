@@ -2,24 +2,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<jsp:useBean id="dataList" scope="request" type="java.util.List<com.conferenceManagement.data.model.Lecture >"/>
+<jsp:useBean id="dataList" scope="request" type="java.util.List<com.conferenceManagement.data.model.Conference >"/>
 
-<tag:page title="Lectures">
+<tag:page title="Conferences">
     <div class="container">
-        <table id="lectures" class="table table-striped">
+        <table id="conferences" class="table table-striped">
             <thead>
             <tr>
                 <th>Topic</th>
-                <th>Speaker</th>
+                <th>Moderator</th>
+                <th>Place</th>
                 <th>Date</th>
+                <th>Seats</th>
             </tr>
             </thead>
 
             <c:forEach var="item" items="${dataList}">
                 <tr>
-                    <td>${item.topic}</td>
-                    <td>${item.speaker.name}</td>
+                    <td>${item.name}</td>
+                    <td>${item.moderator.name}</td>
+                    <td>${item.place}</td>
                     <td><fmt:formatDate value="${item.date}" pattern="MM/dd/yyyy HH:mm"/></td>
+                    <td>${item.seats}</td>
                 </tr>
             </c:forEach>
         </table>

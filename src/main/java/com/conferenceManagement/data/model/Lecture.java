@@ -6,14 +6,12 @@ public class Lecture {
     private Integer id;
     private String topic;
     private User speaker;
-    private String place;
     private Date date;
 
-    public Lecture(Integer id, String topic, User speaker, String place, Date date) {
+    public Lecture(Integer id, String topic, User speaker, Date date) {
         this.id = id;
         this.topic = topic;
         this.speaker = speaker;
-        this.place = place;
         this.date = date;
     }
 
@@ -31,14 +29,6 @@ public class Lecture {
 
     public void setSpeaker(User speaker) {
         this.speaker = speaker;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
     }
 
     public Date getDate() {

@@ -1,10 +1,10 @@
 package com.conferenceManagement.data.dao;
 
+import com.conferenceManagement.data.Role;
 import com.conferenceManagement.data.model.User;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +16,10 @@ public class UserDaoTest {
     private UserDao userDao;
 
     @Before
-    public void init() throws ParseException {
+    public void init() {
         users = new ArrayList<>();
-        users.add(new User(1, "David", "Speaker"));
-        users.add(new User(2, "Aider", "Speaker"));
+        users.add(new User(1, "David", Role.SPEAKER));
+        users.add(new User(2, "Aider", Role.SPEAKER));
 
         userDao = new UserDao(users);
     }
