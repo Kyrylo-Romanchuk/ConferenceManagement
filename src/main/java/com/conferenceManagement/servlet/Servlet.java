@@ -1,9 +1,6 @@
 package com.conferenceManagement.servlet;
 
 import com.conferenceManagement.Initializer;
-import com.conferenceManagement.controller.ConferenceController;
-import com.conferenceManagement.controller.LectureController;
-import com.conferenceManagement.controller.UserController;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,49 +8,60 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 
 @WebServlet("/mvc/*")
 public class Servlet extends HttpServlet {
-    private final Map<String, Function<HttpServletRequest, String>> getMapper = new HashMap<>();
-    private final Map<String, Function<HttpServletRequest, String>> postMapper = new HashMap<>();
-    private final Initializer initializer = new Initializer();
+    private final String redirectAttributes = "REDIRECTATTRIBUTES";
+    private ServletResolver servletResolver;
 
     @Override
-    public void init(){
-        LectureController lectureController = initializer.getController(LectureController.class);
-        UserController userController = initializer.getController(UserController.class);
-        ConferenceController conferenceController = initializer.getController(ConferenceController.class);
-        getMapper.put("/lectures", lectureController::showList);
-        getMapper.put("/users", userController::showList);
-        getMapper.put("/conferences", conferenceController::showList);
+    public void init() {
+        Initializer initializer = new Initializer();
+        servletResolver = initializer.getComponent(ServletResolver.class);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        generateReference(request, response, getMapper);
+        generateReference(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        generateReference(request, response, postMapper);
+        generateReference(request, response);
     }
 
-    private void generateReference(HttpServletRequest request, HttpServletResponse response,
-                                   Map<String, Function<HttpServletRequest, String>> mapper) throws ServletException, IOException {
-        String contextPath = request.getContextPath();
-        String requestUri = request.getRequestURI().replace(contextPath + "/mvc", "");
-        if (mapper.containsKey(requestUri)){
-            String targetURL = mapper.get(requestUri).apply(request);
-            targetURL = "/WEB-INF/jsp" + targetURL;
-            request.getRequestDispatcher(targetURL).forward(request, response);
+    private void generateReference(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String targetUrl = servletResolver.resolve(request, response);
+        removeParameters(request);
+        if (targetUrl.startsWith("redirect:")) {
+            saveParameters(request);
+            response.sendRedirect(request.getContextPath() + targetUrl.substring(9));
+        } else if (targetUrl.endsWith(".jsp")) {
+            targetUrl = "/WEB-INF/jsp" + targetUrl;
+            request.getRequestDispatcher(targetUrl).forward(request, response);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
-
     }
 
+    private void removeParameters(HttpServletRequest request) {
+        Map<String, Object> saveAttributes = (Map<String, Object>) request.getSession().getAttribute(redirectAttributes);
+        if (saveAttributes != null) {
+            saveAttributes.forEach(request::setAttribute);
+            request.getSession().removeAttribute(redirectAttributes);
+        }
+    }
 
+    private void saveParameters(HttpServletRequest request) {
+        Map<String, Object> saveAttributes = new HashMap<>();
+        Enumeration<String> attributeNames = request.getAttributeNames();
+        while (attributeNames.hasMoreElements()) {
+            String name = attributeNames.nextElement();
+            saveAttributes.put(name, request.getAttribute(name));
+        }
+        request.getSession().setAttribute(redirectAttributes, saveAttributes);
+    }
 }

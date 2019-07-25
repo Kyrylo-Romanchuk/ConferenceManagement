@@ -4,24 +4,22 @@
 
 <jsp:useBean id="dataList" scope="request" type="java.util.List<com.conferenceManagement.data.model.Lecture >"/>
 
-<tag:page title="Lectures">
-    <div class="container">
-        <table id="lectures" class="table table-striped">
-            <thead>
-            <tr>
-                <th>Topic</th>
-                <th>Speaker</th>
-                <th>Date</th>
-            </tr>
-            </thead>
+<tag:page title="Lectures" dataTable="lectures">
+    <table id="lectures" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Topic</th>
+            <th>Speaker</th>
+            <th>Date</th>
+        </tr>
+        </thead>
 
-            <c:forEach var="item" items="${dataList}">
-                <tr>
-                    <td>${item.topic}</td>
-                    <td>${item.speaker.name}</td>
-                    <td><fmt:formatDate value="${item.date}" pattern="MM/dd/yyyy HH:mm"/></td>
-                </tr>
-            </c:forEach>
-        </table>
-    </div>
+        <c:forEach var="item" items="${dataList}">
+            <tr>
+                <td>${item.topic}</td>
+                <td>${item.speaker.name}</td>
+                <td><fmt:formatDate value="${item.date}" pattern="MM/dd/yyyy HH:mm"/></td>
+            </tr>
+        </c:forEach>
+    </table>
 </tag:page>

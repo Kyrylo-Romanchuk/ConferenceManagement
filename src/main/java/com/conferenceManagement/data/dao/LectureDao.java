@@ -20,4 +20,13 @@ public class LectureDao implements Dao<Lecture> {
     public Lecture findById(Integer id) {
         return lectures.stream().filter(lecture -> lecture.getId().equals(id)).findFirst().orElse(null);
     }
+
+    @Override
+    public void add(Lecture lecture) {
+        if (lecture.getId() == null){
+            Integer maxId = lectures.stream().map(Lecture::getId).max(Integer::compareTo).orElse(0);
+            lecture.setId(maxId);
+        }
+        lectures.add(lecture);
+    }
 }

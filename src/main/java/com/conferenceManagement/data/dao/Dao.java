@@ -6,4 +6,6 @@ public interface Dao<T> {
     List<T> getAll();
 
     T findById(Integer id);
+
+    void add(T t);
 }

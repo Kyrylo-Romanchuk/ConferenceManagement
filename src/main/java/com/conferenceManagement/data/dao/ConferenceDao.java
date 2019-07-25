@@ -20,4 +20,13 @@ public class ConferenceDao implements Dao<Conference> {
     public Conference findById(Integer id) {
         return conferences.stream().filter(conference -> conference.getId().equals(id)).findFirst().orElse(null);
     }
+
+    @Override
+    public void add(Conference conference) {
+        if (conference.getId() == null){
+            Integer maxId = conferences.stream().map(Conference::getId).max(Integer::compareTo).orElse(0);
+            conference.setId(maxId);
+        }
+        conferences.add(conference);
+    }
 }

@@ -1,27 +1,23 @@
 package com.conferenceManagement;
 
-import com.conferenceManagement.controller.ConferenceController;
-import com.conferenceManagement.controller.Controller;
-import com.conferenceManagement.controller.LectureController;
-import com.conferenceManagement.controller.UserController;
+import com.conferenceManagement.controller.*;
 import com.conferenceManagement.data.Role;
 import com.conferenceManagement.data.converter.DateConverter;
 import com.conferenceManagement.data.converter.IntegerConverter;
+import com.conferenceManagement.data.converter.UserConverter;
 import com.conferenceManagement.data.dao.ConferenceDao;
 import com.conferenceManagement.data.dao.LectureDao;
 import com.conferenceManagement.data.dao.UserDao;
 import com.conferenceManagement.data.model.Conference;
 import com.conferenceManagement.data.model.Lecture;
 import com.conferenceManagement.data.model.User;
+import com.conferenceManagement.servlet.ServletResolver;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Initializer {
-    private final Map<Class, Controller> controllerMap = new HashMap<>();
+    private final Map<Class, Object> components = new HashMap<>();
 
     public Initializer() {
         DateConverter dateConverter = new DateConverter();
@@ -47,26 +43,26 @@ public class Initializer {
                 lectures.stream().filter(lecture -> lecture.getId() == 1 || lecture.getId() == 3).collect(Collectors.toList()),
                 users.stream().filter(user -> user.getRole().equals(Role.USER)).collect(Collectors.toList()),
                 35));
-        conferences.add(new Conference(2, "About games", "hall n.2", dateConverter.convert("05/06/1995 11:00"),users.get(2),
+        conferences.add(new Conference(2, "About games", "hall n.2", dateConverter.convert("05/06/1995 11:00"), users.get(2),
                 lectures.stream().filter(lecture -> lecture.getId() == 2).collect(Collectors.toList()),
                 users.stream().filter(user -> user.getRole().equals(Role.USER)).collect(Collectors.toList()),
                 35));
         ConferenceDao conferenceDao = new ConferenceDao(conferences);
 
-        UserController userController = new UserController(userDao);
+        UserConverter userConverter = new UserConverter();
+
+        UserController userController = new UserController(userDao, userConverter);
         LectureController lectureController = new LectureController(lectureDao);
         ConferenceController conferenceController = new ConferenceController(conferenceDao);
+        ErrorController errorController = new ErrorController();
 
-        controllerMap.put(userController.getClass(), userController);
-        controllerMap.put(lectureController.getClass(), lectureController);
-        controllerMap.put(conferenceController.getClass(), conferenceController);
+        List<Controller> controllers = Arrays.asList(userController, lectureController, conferenceController, errorController);
+
+        ServletResolver servletResolver = new ServletResolver(controllers);
+        components.put(ServletResolver.class, servletResolver);
     }
 
-    public <T> T getController(Class<T> type) {
-        return (T) controllerMap.get(type);
+    public <T> T getComponent(Class<T> type) {
+        return (T) components.get(type);
     }
-
-//    public <T> List<T> getControllers() {
-//        return
-//    }
 }
