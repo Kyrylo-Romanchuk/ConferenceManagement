@@ -6,17 +6,18 @@ import java.util.List;
 public class Conference {
     private Integer id;
     private String name;
-    private String place;
     private Date date;
     private User moderator;
     private List<Lecture> lectures;
     private List<User> users;
     private Integer seats;
 
-    public Conference(Integer id, String name, String place, Date date,User moderator, List<Lecture> lectures, List<User> users, Integer seats) {
+    public Conference() {
+    }
+
+    public Conference(Integer id, String name, Date date, User moderator, List<Lecture> lectures, List<User> users, Integer seats) {
         this.id = id;
         this.name = name;
-        this.place = place;
         this.date = date;
         this.moderator = moderator;
         this.users = users;
@@ -72,19 +73,15 @@ public class Conference {
         this.seats = seats;
     }
 
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
     public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Lecture getLectureById (Integer id){
+        return lectures.stream().filter(lecture -> lecture.getId().equals(id)).findFirst().orElse(null);
     }
 }

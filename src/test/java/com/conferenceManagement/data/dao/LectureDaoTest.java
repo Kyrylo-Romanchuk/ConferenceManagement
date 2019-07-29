@@ -1,5 +1,6 @@
 package com.conferenceManagement.data.dao;
 
+import com.conferenceManagement.data.Place;
 import com.conferenceManagement.data.Role;
 import com.conferenceManagement.data.model.Lecture;
 import com.conferenceManagement.data.model.User;
@@ -26,8 +27,8 @@ public class LectureDaoTest {
         users.add(new User(2, "Aider", Role.SPEAKER));
 
         lectures = new ArrayList<>();
-        lectures.add(new Lecture(1, "Business", users.get(0), simpleDateFormat.parse("05/05/1995")));
-        lectures.add(new Lecture(2, "Starcraft Theory and Strategy", users.get(1), simpleDateFormat.parse("05/05/1995")));
+        lectures.add(new Lecture(1, "Business", users.get(0), simpleDateFormat.parse("05/05/1995"), Place.FIRSTHOLE));
+        lectures.add(new Lecture(2, "Starcraft Theory and Strategy", users.get(1), simpleDateFormat.parse("05/05/1995"), Place.SECONDHOLE));
 
         lectureDao = new LectureDao(lectures);
     }

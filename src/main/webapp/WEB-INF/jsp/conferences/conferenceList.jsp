@@ -3,14 +3,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:useBean id="dataList" scope="request" type="java.util.List<com.conferenceManagement.data.model.Conference >"/>
+<c:set var="dataTableName" value="conferences" scope="page"/>
 
 <tag:page title="Conferences" dataTable="conferences">
-    <table id="conferences" class="table table-striped">
+    <table id="${dataTableName}" class="table table-striped">
         <thead>
         <tr>
             <th>Topic</th>
             <th>Moderator</th>
-            <th>Place</th>
             <th>Date</th>
             <th>Seats</th>
         </tr>
@@ -20,10 +20,16 @@
             <tr>
                 <td>${item.name}</td>
                 <td>${item.moderator.name}</td>
-                <td>${item.place}</td>
                 <td><fmt:formatDate value="${item.date}" pattern="MM/dd/yyyy HH:mm"/></td>
                 <td>${item.seats}</td>
             </tr>
         </c:forEach>
     </table>
+
+    <div id="${dataTableName}-menu">
+        <button class="btn navbar-light" data-toggle="dropdown" style="padding: .2rem;">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <tag:actionForTable name="Add" address="${base}/conferences/add"/>
+    </div>
 </tag:page>

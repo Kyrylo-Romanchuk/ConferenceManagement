@@ -1,7 +1,8 @@
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:useBean id="user" scope="request" class="com.conferenceManagement.data.model.User"/>
+<jsp:useBean id="user" scope="request" type="com.conferenceManagement.data.model.User"/>
+<jsp:useBean id="roles" scope="request" type="java.util.List<com.conferenceManagement.data.Role>"/>
 
 <tag:page title="New user">
     <div class="text-center">

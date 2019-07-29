@@ -1,10 +1,9 @@
 package com.conferenceManagement;
 
 import com.conferenceManagement.controller.*;
+import com.conferenceManagement.data.Place;
 import com.conferenceManagement.data.Role;
-import com.conferenceManagement.data.converter.DateConverter;
-import com.conferenceManagement.data.converter.IntegerConverter;
-import com.conferenceManagement.data.converter.UserConverter;
+import com.conferenceManagement.data.converter.*;
 import com.conferenceManagement.data.dao.ConferenceDao;
 import com.conferenceManagement.data.dao.LectureDao;
 import com.conferenceManagement.data.dao.UserDao;
@@ -33,27 +32,29 @@ public class Initializer {
         UserDao userDao = new UserDao(users);
 
         List<Lecture> lectures = new ArrayList<>();
-        lectures.add(new Lecture(1, "Business", users.get(0), dateConverter.convert("05/05/1995 10:00")));
-        lectures.add(new Lecture(2, "Starcraft Theory and Strategy", users.get(1), dateConverter.convert("05/05/1995 13:00")));
-        lectures.add(new Lecture(3, "Business", users.get(0), dateConverter.convert("05/06/1995 12:00")));
+        lectures.add(new Lecture(1, "Business", users.get(0), dateConverter.convert("05/05/1995 10:00"), Place.FIRSTHOLE));
+        lectures.add(new Lecture(2, "Starcraft Theory and Strategy", users.get(1), dateConverter.convert("05/05/1995 13:00"), Place.FIRSTHOLE));
+        lectures.add(new Lecture(3, "Business", users.get(0), dateConverter.convert("05/06/1995 12:00"), Place.SECONDHOLE));
         LectureDao lectureDao = new LectureDao(lectures);
 
         List<Conference> conferences = new ArrayList<>();
-        conferences.add(new Conference(1, "About Business", "hall n.1", dateConverter.convert("05/05/1995 10:00"), users.get(2),
+        conferences.add(new Conference(1, "About Business", dateConverter.convert("05/05/1995 10:00"), users.get(2),
                 lectures.stream().filter(lecture -> lecture.getId() == 1 || lecture.getId() == 3).collect(Collectors.toList()),
                 users.stream().filter(user -> user.getRole().equals(Role.USER)).collect(Collectors.toList()),
                 35));
-        conferences.add(new Conference(2, "About games", "hall n.2", dateConverter.convert("05/06/1995 11:00"), users.get(2),
+        conferences.add(new Conference(2, "About games", dateConverter.convert("05/06/1995 11:00"), users.get(2),
                 lectures.stream().filter(lecture -> lecture.getId() == 2).collect(Collectors.toList()),
                 users.stream().filter(user -> user.getRole().equals(Role.USER)).collect(Collectors.toList()),
                 35));
         ConferenceDao conferenceDao = new ConferenceDao(conferences);
 
         UserConverter userConverter = new UserConverter();
+        LectureConverter lectureConverter = new LectureConverter(dateConverter, integerConverter, userDao);
+        ConferenceConverter conferenceConverter = new ConferenceConverter(dateConverter, integerConverter,userDao,lectureDao);
 
         UserController userController = new UserController(userDao, userConverter);
-        LectureController lectureController = new LectureController(lectureDao);
-        ConferenceController conferenceController = new ConferenceController(conferenceDao);
+        LectureController lectureController = new LectureController(lectureDao, userDao, lectureConverter);
+        ConferenceController conferenceController = new ConferenceController(conferenceConverter, conferenceDao, userDao, lectureDao);
         ErrorController errorController = new ErrorController();
 
         List<Controller> controllers = Arrays.asList(userController, lectureController, conferenceController, errorController);

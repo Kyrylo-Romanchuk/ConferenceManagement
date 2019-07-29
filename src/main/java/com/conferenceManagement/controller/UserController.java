@@ -8,6 +8,7 @@ import com.conferenceManagement.servlet.annotation.GetMapping;
 import com.conferenceManagement.servlet.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 
 public class UserController implements Controller {
     private final UserDao userDao;
@@ -26,7 +27,8 @@ public class UserController implements Controller {
 
     @GetMapping("/users/add")
     public String showAdd(HttpServletRequest request) {
-        request.setAttribute("roles", Role.values());
+        request.setAttribute("user", new User());
+        request.setAttribute("roles", Arrays.asList(Role.values()));
         return "/users/userAdd.jsp";
     }
 

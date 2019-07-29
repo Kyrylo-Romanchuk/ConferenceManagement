@@ -1,8 +1,10 @@
 package com.conferenceManagement.data.dao;
 
+import com.conferenceManagement.data.Role;
 import com.conferenceManagement.data.model.User;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserDao implements Dao<User> {
     private final List<User> users;
@@ -28,5 +30,9 @@ public class UserDao implements Dao<User> {
             user.setId(maxId);
         }
         users.add(user);
+    }
+
+    public List<User> getAllByRole (Role role){
+        return users.stream().filter(user -> user.getRole().equals(role)).collect(Collectors.toList());
     }
 }
